@@ -6,8 +6,9 @@ import { useEffect } from "react";
 import { login, logout } from "./store/authSlice";
 import { Header, Footer } from "./components";
 import { Outlet } from "react-router-dom";
+
 function App() {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {

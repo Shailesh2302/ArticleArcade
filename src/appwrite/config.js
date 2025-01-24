@@ -10,9 +10,10 @@ export class Service {
     this.client
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
+
     this.databases = new Databases(this.client);
     this.bucket = new Storage(this.client);
-  }  
+  }
 
   async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
@@ -63,7 +64,7 @@ export class Service {
       return false;
     }
   }
-
+                       
   async getPost(slug) {
     try {
       return await this.databases.getDocument(
@@ -77,12 +78,12 @@ export class Service {
     }
   }
 
-  async getPosts(quiries = [Query.equal("status", "active")]) {
+  async getPosts(queries = [Query.equal("status", "active")]) {
     try {
       return this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        quiries
+        queries
       );
     } catch (error) {
       console.log("Appwrite service :: getPosts :: error", error);
@@ -90,9 +91,8 @@ export class Service {
     }
   }
 
-
   //file upload service
-   
+
   async uploadFile(file) {
     try {
       return await this.bucket.createFile(
